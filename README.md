@@ -1,1 +1,1 @@
-# dog_alarm
+# coopmaster-dog-alarm
