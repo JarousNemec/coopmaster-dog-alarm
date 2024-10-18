@@ -1,0 +1,7 @@
+services:
+  coop_dog_alarm:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "9008:9008"
