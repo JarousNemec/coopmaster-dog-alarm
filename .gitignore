@@ -167,3 +167,9 @@ cython_debug/
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
+/app/cron/alert_image.png
+/app/cron/Clip_1.mp4
+/app/cron/demo_video.mp4
+/app/cron/dogo.png
+/app/cron/Kvok.mp4
+/app/cron/kvok_venkovni.mp4
