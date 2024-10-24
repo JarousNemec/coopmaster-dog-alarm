@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from app import configuration
 from app.mqtt import mqtt_helper
 
-
+# todo:resize images to reduce data size
 def publish_dog_alert(cfg, mqtt_client, image_topic, topic):
     logging.info("Starting task publish_dog_alert")
     values = [12, 2, 8, 4, 7, 6, 10, 0, 0, 0, 0]
@@ -23,7 +23,7 @@ def publish_dog_alert(cfg, mqtt_client, image_topic, topic):
         byte_arr = bytearray(file_content)
         mqtt_helper.publish_bytes(mqtt_client, image_topic, byte_arr)
 
-
+# todo:resize images to reduce data size
 def publish_current_image(cfg, mqtt_client, topic):
     logging.info("Starting task publish_current_image")
 
