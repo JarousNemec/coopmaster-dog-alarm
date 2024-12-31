@@ -21,14 +21,9 @@ class AppConfigError(Exception):
 class AppConfig:
     PORT: int = 9008
     HOST: str = "127.0.0.1"
-    INSTALLATION_DIRECTORY: str = "/bizstorecard"
 
-    DB_HOST: str = "coop-solution-db"
-    DB_PORT: int = 5432
-
-    POSTGRES_USER: str = "coop_admin"
-    POSTGRES_PASSWORD: str = "your_secure_password1"
-    POSTGRES_DB: str = "coopmaster"
+    DOG_CAMERA_PORT: int = 9001
+    DOG_CAMERA_HOST: int = "localhost"
 
     MQTT_BROKER: str = "192.168.1.177"
     MQTT_PORT: int = 1883
