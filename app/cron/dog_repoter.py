@@ -11,13 +11,11 @@ from app import configuration
 
 def check_dog():
     detected = detect_dog()
-    if not detected:
-        return
     mqtt_client = configuration.get_mqtt_client()
 
     try:
         mqtt_client.connect()
-        report_dog(mqtt_client)
+        report_dog(mqtt_client, detected)
     except:
         logging.error(
             f"Could not connect to MQTT broker. No data will be published. Check connection to MQTT server. {configuration.config.MQTT_BROKER}:{configuration.config.MQTT_PORT} {configuration.config.MQTT_TOPIC} ")
@@ -25,8 +23,8 @@ def check_dog():
         mqtt_client.close()
 
 
-def report_dog(mqtt_client):
-    message = {"dog": "true"}
+def report_dog(mqtt_client, dog_detected):
+    message = {"dog": dog_detected}
     payload = json.dumps(message)
 
     result = mqtt_client.publish(configuration.config.MQTT_TOPIC, payload.encode())
