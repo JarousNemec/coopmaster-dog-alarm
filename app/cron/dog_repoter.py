@@ -1,9 +1,6 @@
 import json
 import logging
 
-import torch
-import ultralytics
-from ultralytics import YOLO
 import requests
 
 from app import configuration
@@ -40,9 +37,7 @@ def report_dog(mqtt_client, dog_detected):
 
 def detect_dog():
     temp_img_path = get_image()
-
-    model = YOLO("yolo11x")  # Your model should be here after training
-    results = model(temp_img_path)  # image you weant to predict on
+    results = configuration.model(temp_img_path)  # image you weant to predict on
 
     detected = False
 
@@ -57,7 +52,6 @@ def detect_dog():
                 detected = True
 
     return detected
-
 
 
 def get_image():
