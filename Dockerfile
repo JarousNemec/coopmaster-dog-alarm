@@ -1,4 +1,4 @@
-FROM  ultralytics/ultralytics:8.3.3-python
+FROM ultralytics/ultralytics:8.3.3-python
 
 RUN mkdir build
 
@@ -8,7 +8,6 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-EXPOSE 9008:9008
-
+EXPOSE 9008
 
 CMD [ "python", "/build/main.py"]
