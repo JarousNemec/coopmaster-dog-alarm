@@ -24,8 +24,8 @@ def check_dog():
 
 
 def report_dog(mqtt_client, dog_detected):
-    message = {"dog": dog_detected}
-    payload = json.dumps(message)
+
+    payload = "yes" if dog_detected else "no"
 
     result = mqtt_client.publish(configuration.config.MQTT_DOG_DETECTED_TOPIC, payload.encode())
 
