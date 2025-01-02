@@ -31,6 +31,7 @@ class AppConfig:
     MQTT_DOG_DETECTED_TOPIC: str = "coopmaster/dog/detected"
     MQTT_DOG_ACTUAL_IMAGE: str = "coopmaster/dog/image/actual"
     MQTT_DOG_ALARM_IMAGE: str = "coopmaster/dog/image/alarm"
+
     MQTT_USERNAME: str = "admin"
     MQTT_PASSWORD: str = "password"
     REPORT_INTERVAL: int = 5

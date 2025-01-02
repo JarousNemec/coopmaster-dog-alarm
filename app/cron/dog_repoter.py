@@ -58,10 +58,10 @@ def publish_detected_image(mqtt_client, actual_image):
     with open(actual_image, "rb") as image_file:
         image_bytes = image_file.read()
 
-        result = mqtt_client.publish(configuration.config.MQTT_DOG_DETECTED_IMAGE, image_bytes)
+        result = mqtt_client.publish(configuration.config.MQTT_DOG_ALARM_IMAGE, image_bytes)
 
         logging.info(
-            f"Going to publish following payload to {configuration.config.MQTT_DOG_DETECTED_IMAGE}: {len(image_bytes)}")
+            f"Going to publish following payload to {configuration.config.MQTT_DOG_ALARM_IMAGE}: {len(image_bytes)}")
         # Check if the message was successfully published
         status = result[0]
         if status == 0:
