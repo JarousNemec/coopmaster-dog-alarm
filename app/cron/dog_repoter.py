@@ -13,7 +13,9 @@ def check_dog():
     try:
         mqtt_client.connect()
         report_dog(mqtt_client, detected)
-        report_actual_image(mqtt_client, actual_image)
+        publish_actual_image(mqtt_client, actual_image)
+        if detected:
+            publish_detected_image(mqtt_client, actual_image)
     except:
         logging.error(
             f"Could not connect to MQTT broker. No data will be published. Check connection to MQTT server")
@@ -36,7 +38,7 @@ def report_dog(mqtt_client, dog_detected):
         logging.error(f"Dog detected reported with error {status}")
 
 
-def report_actual_image(mqtt_client, actual_image):
+def publish_actual_image(mqtt_client, actual_image):
     with open(actual_image, "rb") as image_file:
         image_bytes = image_file.read()
 
@@ -44,6 +46,22 @@ def report_actual_image(mqtt_client, actual_image):
 
         logging.info(
             f"Going to publish following payload to {configuration.config.MQTT_DOG_ACTUAL_IMAGE}: {len(image_bytes)}")
+        # Check if the message was successfully published
+        status = result[0]
+        if status == 0:
+            logging.info("Chicken coop actual image reported successfully")
+        else:
+            logging.error(f"Chicken coop actual image reported with error {status}")
+
+
+def publish_detected_image(mqtt_client, actual_image):
+    with open(actual_image, "rb") as image_file:
+        image_bytes = image_file.read()
+
+        result = mqtt_client.publish(configuration.config.MQTT_DOG_DETECTED_IMAGE, image_bytes)
+
+        logging.info(
+            f"Going to publish following payload to {configuration.config.MQTT_DOG_DETECTED_IMAGE}: {len(image_bytes)}")
         # Check if the message was successfully published
         status = result[0]
         if status == 0:

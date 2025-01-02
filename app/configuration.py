@@ -30,6 +30,7 @@ class AppConfig:
     MQTT_PORT: int = 1883
     MQTT_DOG_DETECTED_TOPIC: str = "coopmaster/dog/detected"
     MQTT_DOG_ACTUAL_IMAGE: str = "coopmaster/dog/image/actual"
+    MQTT_DOG_DETECTED_IMAGE: str = "coopmaster/dog/image/detected"
     MQTT_USERNAME: str = "admin"
     MQTT_PASSWORD: str = "password"
     REPORT_INTERVAL: int = 5
