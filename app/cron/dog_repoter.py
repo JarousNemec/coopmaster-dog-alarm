@@ -13,6 +13,7 @@ def check_dog():
     try:
         mqtt_client.connect()
         report_dog(mqtt_client, detected)
+        report_actual_image(mqtt_client, actual_image)
     except:
         logging.error(
             f"Could not connect to MQTT broker. No data will be published. Check connection to MQTT server")
