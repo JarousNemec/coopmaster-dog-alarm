@@ -9,5 +9,5 @@ def start_server():
 
 
 if __name__ == '__main__':
-    print("Dog alarm")
+    print("Coopmaster dog alarm")
     start_server()

@@ -7,7 +7,7 @@ from app import configuration
 
 
 def check_dog():
-    detected = detect_dog()
+    detected, actual_image = detect_dog()
     mqtt_client = configuration.get_mqtt_client()
 
     try:
@@ -15,7 +15,7 @@ def check_dog():
         report_dog(mqtt_client, detected)
     except:
         logging.error(
-            f"Could not connect to MQTT broker. No data will be published. Check connection to MQTT server. {configuration.config.MQTT_BROKER}:{configuration.config.MQTT_PORT} {configuration.config.MQTT_TOPIC} ")
+            f"Could not connect to MQTT broker. No data will be published. Check connection to MQTT server")
     finally:
         mqtt_client.close()
 
@@ -24,15 +24,31 @@ def report_dog(mqtt_client, dog_detected):
     message = {"dog": dog_detected}
     payload = json.dumps(message)
 
-    result = mqtt_client.publish(configuration.config.MQTT_TOPIC, payload.encode())
+    result = mqtt_client.publish(configuration.config.MQTT_DOG_DETECTED_TOPIC, payload.encode())
 
-    logging.info(f"Going to publish following payload to {configuration.config.MQTT_TOPIC}: {payload.encode()}")
+    logging.info(f"Going to publish following payload to {configuration.config.MQTT_DOG_DETECTED_TOPIC}: {payload.encode()}")
     # Check if the message was successfully published
     status = result[0]
     if status == 0:
-        logging.info("Nest status reported successfully")
+        logging.info("Dog detected status reported successfully")
     else:
-        logging.error(f"Nest status reported with error {status}")
+        logging.error(f"Dog detected reported with error {status}")
+
+
+def report_actual_image(mqtt_client, actual_image):
+    with open(actual_image, "rb") as image_file:
+        image_bytes = image_file.read()
+
+        result = mqtt_client.publish(configuration.config.MQTT_DOG_ACTUAL_IMAGE, image_bytes)
+
+        logging.info(
+            f"Going to publish following payload to {configuration.config.MQTT_DOG_ACTUAL_IMAGE}: {len(image_bytes)}")
+        # Check if the message was successfully published
+        status = result[0]
+        if status == 0:
+            logging.info("Chicken coop actual image reported successfully")
+        else:
+            logging.error(f"Chicken coop actual image reported with error {status}")
 
 
 def detect_dog():
@@ -51,7 +67,7 @@ def detect_dog():
             if names[int(cls)] == "dog":
                 detected = True
 
-    return detected
+    return detected, temp_img_path
 
 
 def get_image():
@@ -63,7 +79,7 @@ def get_image():
     try:
         response = requests.get(url)
         response.raise_for_status()
-        image = 'image.jpg'
+        image = 'dog.jpg'
         with open(image, 'wb') as file:
             # Write the content of the response to the file
             file.write(response.content)

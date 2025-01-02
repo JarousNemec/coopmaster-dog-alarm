@@ -28,7 +28,8 @@ class AppConfig:
 
     MQTT_BROKER: str = "192.168.1.177"
     MQTT_PORT: int = 1883
-    MQTT_TOPIC: str = "dog/detected"
+    MQTT_DOG_DETECTED_TOPIC: str = "coopmaster/dog/detected"
+    MQTT_DOG_ACTUAL_IMAGE: str = "coopmaster/dog/image"
     MQTT_USERNAME: str = "admin"
     MQTT_PASSWORD: str = "password"
     REPORT_INTERVAL: int = 5
@@ -80,7 +81,6 @@ def get_mqtt_client():
     return NestMQTTClient(
         config.MQTT_BROKER,
         config.MQTT_PORT,
-        config.MQTT_TOPIC,
         config.MQTT_USERNAME,
         config.MQTT_PASSWORD
     )
