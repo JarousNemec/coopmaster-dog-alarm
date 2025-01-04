@@ -90,8 +90,8 @@ def detect_dog():
 
 
 def get_image():
-    host = configuration.config.DOG_CAMERA_HOST
-    port = configuration.config.DOG_CAMERA_PORT
+    host = configuration.config.CAMERA_DRIVER_HOST
+    port = configuration.config.CAMERA_DRIVER_PORT
 
     url = f'http://{host}:{port}/api/dog/image'
 
