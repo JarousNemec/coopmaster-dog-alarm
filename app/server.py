@@ -31,7 +31,7 @@ def server():
     port = configuration.config.PORT
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(check_dog, 'interval', seconds=configuration.config.REPORT_INTERVAL)
+    scheduler.add_job(check_dog, 'interval', seconds=configuration.config.REPORT_INTERVAL, max_instances=1)
     scheduler.start()
 
     logging.info(f"Serving on http://{host}:{port}/api/ping")
